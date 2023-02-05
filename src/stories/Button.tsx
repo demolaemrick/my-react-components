@@ -1,6 +1,7 @@
+import { ReactNode, HTMLAttributes } from 'react';
 import './button.css';
 
-interface ButtonProps {
+interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
 	/**
 	 * Is this the principal call to action on the page?
 	 */
@@ -16,11 +17,7 @@ interface ButtonProps {
 	/**
 	 * Button contents
 	 */
-	label: string;
-	/**
-	 * Optional click handler
-	 */
-	onClick?: () => void;
+	children: ReactNode;
 }
 
 /**
@@ -30,7 +27,7 @@ export const Button = ({
 	primary = false,
 	size = 'medium',
 	backgroundColor,
-	label,
+	children,
 	...props
 }: ButtonProps) => {
 	const mode = primary
@@ -45,7 +42,7 @@ export const Button = ({
 			style={{ backgroundColor }}
 			{...props}
 		>
-			{label}
+			{children}
 		</button>
 	);
 };
