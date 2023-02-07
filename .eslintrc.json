@@ -25,6 +25,7 @@
 		"tsconfigRootDir": ".",
 		"project": ["./tsconfig.json"]
 	},
+	"ignorePatterns": ["postcss.config.js", "tailwind.config.js"],
 	// Configuring third-party plugins
 	"plugins": ["react", "@typescript-eslint"],
 	// Resolve imports
