@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import { Button } from './Button';
+import Button from './Button';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -22,7 +22,7 @@ const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-	primary: true,
+	color: 'primary',
 };
 
 export const Secondary = Template.bind({});
@@ -32,12 +32,12 @@ Secondary.args = {
 
 export const Large = Template.bind({});
 Large.args = {
-	size: 'large',
+	size: 'lg',
 	children: 'Button',
 };
 
 export const Small = Template.bind({});
 Small.args = {
-	size: 'small',
+	size: 'sm',
 	children: 'Button',
 };
