@@ -5,14 +5,14 @@ import Button from './Button';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-	title: 'Example/Button',
+	title: 'Button',
 	component: Button,
 	// More on argTypes: https://storybook.js.org/docs/react/api/argtypes
 	argTypes: {
 		backgroundColor: { control: 'color' },
 	},
 	args: {
-		children: 'Default Text',
+		children: 'Buttont',
 	},
 } as ComponentMeta<typeof Button>;
 
@@ -23,21 +23,26 @@ export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
 	color: 'primary',
+	variant: 'contained',
+	children: 'Primary',
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-	children: 'Button',
-};
-
-export const Large = Template.bind({});
-Large.args = {
-	size: 'lg',
-	children: 'Button',
+	color: 'secondary',
+	variant: 'contained',
+	children: 'Secondary',
 };
 
 export const Small = Template.bind({});
 Small.args = {
 	size: 'sm',
-	children: 'Button',
+};
+export const Mediun = Template.bind({});
+Mediun.args = {
+	size: 'md',
+};
+export const Large = Template.bind({});
+Large.args = {
+	size: 'lg',
 };
