@@ -150,7 +150,7 @@ const Button = ({
 			type={type}
 			disabled={disabled}
 			onClick={handleClick}
-			className={twMerge(clsx(classList, 'rounded-md select-none'))}
+			className={twMerge(clsx(classList, 'rounded-md capitalize select-none'))}
 		>
 			{buttonContent}
 		</button>
