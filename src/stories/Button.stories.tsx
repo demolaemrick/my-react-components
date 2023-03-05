@@ -38,12 +38,15 @@ Secondary.args = {
 export const Small = Template.bind({});
 Small.args = {
 	size: 'sm',
+	children: 'Small',
 };
 export const Mediun = Template.bind({});
 Mediun.args = {
 	size: 'md',
+	children: 'Medium',
 };
 export const Large = Template.bind({});
 Large.args = {
 	size: 'lg',
+	children: 'Large',
 };

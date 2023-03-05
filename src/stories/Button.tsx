@@ -123,12 +123,13 @@ const Button = ({
 			[`${buttonConfig[color].text}`]: variant === 'text',
 			[`${buttonConfig[color].outlined}`]: variant === 'outlined',
 			'shadow-mui-button hover:shadow-mui-button-hover active:shadow-mui-button-active':
-				variant === 'contained' && !disabled && !disableElevation,
-			'cursor-default text-black/25': disabled,
+				variant === 'contained' && !disabled && !loading && !disableElevation,
+			'cursor-default text-black/25': disabled || loading,
 			'bg-black/[0.12]': disabled && variant === 'contained',
 			'hover:bg-transparent': disabled && variant !== 'contained',
 			'border-black/[0.12]': disabled && variant === 'outlined',
 			'w-full': fullWidth,
+			'text-transparent hover:text-transparent': loading && useDefaultLoader,
 		},
 		size && buttonConfig[size],
 		className
@@ -141,16 +142,28 @@ const Button = ({
 			{endIcon && <>{endIcon}</>}
 		</>
 	);
-	if (loading) {
-		buttonContent =
-			loader && useDefaultLoader ? <Spinner /> : <>{loadingIndicator}</>;
+	if (loading && !useDefaultLoader) {
+		buttonContent = <>{loadingIndicator}</>;
+	}
+	if (loading && useDefaultLoader) {
+		buttonContent = (
+			<>
+				<>{loader}</>
+				{buttonContent}
+			</>
+		);
 	}
 	return (
 		<button
 			type={type}
-			disabled={disabled}
+			disabled={disabled || loading}
 			onClick={handleClick}
-			className={twMerge(clsx(classList, 'rounded-md capitalize select-none'))}
+			className={twMerge(
+				clsx(
+					classList,
+					'min-w-[64px] font-medium rounded-md uppercase leading-7 select-none'
+				)
+			)}
 		>
 			{buttonContent}
 		</button>

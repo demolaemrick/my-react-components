@@ -19,7 +19,9 @@ function App() {
 			<div className="flex flex-col gap-2">
 				<Header>Contained Button</Header>
 				<FlexRow>
-					<Button>Primary</Button>
+					<Button loading useDefaultLoader>
+						Primary
+					</Button>
 					<Button color="secondary">Secondary</Button>
 					<Button disabled>Disabled</Button>
 				</FlexRow>
