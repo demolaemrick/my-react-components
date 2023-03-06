@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import Button from 'stories/Button';
+import Button from 'stories/Inputs/Button/Button';
 import { HiOutlineLogout, HiLogout } from 'react-icons/hi';
 
 interface PropTypes {
