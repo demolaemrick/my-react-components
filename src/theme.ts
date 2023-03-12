@@ -19,3 +19,11 @@ export const buttonConfig = {
 	md: 'px-4 py-1.5',
 	lg: 'px-5 py-2',
 };
+
+export const inputConfig = {
+	//Sizes
+	xs: 'px-2 h-6',
+	sm: 'px-3 h-8',
+	md: 'px-4 h-10',
+	lg: 'px-4 h-12',
+};
