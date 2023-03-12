@@ -12,6 +12,7 @@ interface InputProps {
 	type: string;
 	placeholder: string;
 	size?: 'xs' | 'sm' | 'md' | 'lg';
+	variant?: 'outlined' | 'filled' | 'flushed' | 'unstyled';
 	className?: string;
 	register: UseFormReturn['register'];
 	errors?: FieldErrors;
@@ -22,6 +23,7 @@ const Input = ({
 	label,
 	type,
 	size = 'md',
+	variant = 'outlined',
 	placeholder,
 	className,
 	register,
@@ -37,14 +39,25 @@ const Input = ({
 				{...register(id, { required: true })}
 				className={twMerge(
 					clsx(
+						'w-full font-light text-gray-700  overflow-visible rounded select-none  placeholder:text-[#1C345442] placeholder:font-normal placeholder:text-base transition ease-in-out duration-200',
 						size && inputConfig[size],
-						'w-full border-none font-light text-gray-700 bg-[#1A38601A] rounded z-0 focus:shadow focus:outline-none focus:ring-primary placeholder:text-[#1C345442] placeholder:font-extralight placeholder:text-base',
+						{
+							'outline-primary': variant === 'outlined' || variant === 'filled',
+							'outline-none': variant === 'flushed' || variant === 'unstyled',
+							'border hover:border-gray-300': variant === 'outlined',
+							'bg-gray-100 shadow hover:bg-gray-200 focus:bg-transparent focus:shadow-none':
+								variant === 'filled',
+							'border-b px-0 rounded-none focus:border-b-2 focus:border-primary':
+								variant === 'flushed',
+							'': variant === 'unstyled',
+						},
+
 						className
 					)
 				)}
 			/>
 			{errors && errors[id] && (
-				<span className="text-xs text-danger">
+				<span className="text-xs text-danger select-none">
 					<>{errors[id]?.message}</>
 				</span>
 			)}
