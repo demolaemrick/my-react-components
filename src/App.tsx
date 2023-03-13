@@ -4,8 +4,8 @@ import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Button from 'stories/Inputs/Button/Button';
-import Input from 'stories/Inputs/Input/Input';
-import { HiOutlineLogout, HiLogout } from 'react-icons/hi';
+import Input, { InputAdornment } from 'stories/Inputs/Input/Input';
+import { HiOutlineLogout, HiLogout, HiOutlineEye } from 'react-icons/hi';
 
 const loginSchema = yup.object({
 	name: yup.string().required().min(3),
@@ -78,7 +78,7 @@ function App() {
 				{/* <button className="bg-red-500 text-white px-[10px] py-1 min-w-[64px] hover:bg-black rounded-lg cursor-default select-none shadow-mui-button text-sm">
 					SMALL
 				</button> */}
-				<form className="w-[300px]" onSubmit={handleSubmit(onSubmit)}>
+				<form className="w-[300px] space-y-6" onSubmit={handleSubmit(onSubmit)}>
 					<Input
 						id="name"
 						label="Name"
@@ -86,14 +86,14 @@ function App() {
 						placeholder="Enter your name"
 						register={register}
 						errors={errors}
-					/>
-					<Input
-						id="age"
-						label="Age"
-						type="number"
-						placeholder="Enter your age"
-						register={register}
-						errors={errors}
+						inputProps={{
+							startAdornment: (
+								<InputAdornment position="start" adornment={<HiOutlineEye />} />
+							),
+							endAdornment: (
+								<InputAdornment position="end" adornment={<HiOutlineEye />} />
+							),
+						}}
 					/>
 					<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
 						Submit
