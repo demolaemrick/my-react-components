@@ -5,38 +5,9 @@ import { twMerge } from 'tailwind-merge';
 import { clsx } from 'clsx';
 
 import Label from 'components/ui/InputLabel';
+import FormGroup from 'components/ui/FormGroup';
 
 import { inputConfig } from 'theme';
-
-const positionConfig = {
-	start: 'left-2',
-	end: 'right-2',
-};
-interface InputAdornmentProps {
-	adornment: JSX.Element;
-	pointerEvents?: 'none' | 'auto';
-	position: 'start' | 'end';
-}
-
-export const InputGroup = ({ children }: { children: React.ReactNode }) => (
-	<div className="relative flex items-center w-full">{children}</div>
-);
-
-export const InputAdornment = ({
-	adornment,
-	pointerEvents = 'auto',
-	position,
-}: InputAdornmentProps) => (
-	<div
-		className={clsx(
-			`absolute ${positionConfig[position]} ${
-				pointerEvents === 'auto' ? 'pointer-events-auto' : 'pointer-events-none'
-			} z-10`
-		)}
-	>
-		{adornment}
-	</div>
-);
 
 interface InputProps {
 	id: string;
@@ -69,7 +40,7 @@ const Input = ({
 	return (
 		<div className="w-full">
 			<Label htmlFor={id}>{label}</Label>
-			<InputGroup>
+			<FormGroup>
 				{inputProps?.startAdornment}
 				<input
 					id={id}
@@ -99,7 +70,7 @@ const Input = ({
 					)}
 				/>
 				{inputProps?.endAdornment}
-			</InputGroup>
+			</FormGroup>
 			{errors && errors[id] && (
 				<span className="text-xs text-danger select-none">
 					<>{errors[id]?.message}</>

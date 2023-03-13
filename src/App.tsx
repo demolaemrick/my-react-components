@@ -4,7 +4,8 @@ import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Button from 'stories/Inputs/Button/Button';
-import Input, { InputAdornment } from 'stories/Inputs/Input/Input';
+import Input from 'stories/Inputs/Input/Input';
+import InputAdornment from 'components/ui/InputAdornment';
 import { HiOutlineLogout, HiLogout, HiOutlineEye } from 'react-icons/hi';
 
 const loginSchema = yup.object({
