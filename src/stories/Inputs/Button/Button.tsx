@@ -12,7 +12,7 @@ interface ButtonProps {
 	onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 	type?: 'button' | 'submit' | 'reset';
 	variant?: 'contained' | 'outlined' | 'text';
-	color?: 'primary' | 'secondary';
+	color?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info';
 	size?: 'sm' | 'md' | 'lg';
 	fullWidth?: boolean;
 	disabled?: boolean;
