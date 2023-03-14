@@ -19,7 +19,7 @@ const InputAdornment = ({
 		className={clsx(
 			`absolute ${positionConfig[position]} ${
 				pointerEvents === 'auto' ? 'pointer-events-auto' : 'pointer-events-none'
-			} z-10`
+			} z-10 select-none`
 		)}
 	>
 		{adornment}

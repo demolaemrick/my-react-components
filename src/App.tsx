@@ -10,10 +10,7 @@ import { HiOutlineLogout, HiLogout, HiOutlineEye } from 'react-icons/hi';
 
 const loginSchema = yup.object({
 	name: yup.string().required().min(3),
-	age: yup
-		.number()
-		.required()
-		.min(18, 'you must be atleast 18years old to continnue'),
+	street: yup.string().required().min(14),
 });
 
 interface PropTypes {
@@ -83,6 +80,19 @@ function App() {
 					<Input
 						id="name"
 						label="Name"
+						type="text"
+						placeholder="Enter your name"
+						register={register}
+						errors={errors}
+						inputProps={{
+							endAdornment: (
+								<InputAdornment position="end" adornment={<HiOutlineEye />} />
+							),
+						}}
+					/>
+					<Input
+						id="street"
+						label="Street"
 						type="text"
 						placeholder="Enter your name"
 						register={register}
