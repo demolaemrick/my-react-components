@@ -8,6 +8,7 @@ import Label from 'components/ui/InputLabel';
 import FormGroup from 'components/ui/FormGroup';
 
 import { inputConfig } from 'theme';
+import { capitalizeFirstLetter } from 'shared/utils';
 
 interface InputProps {
 	id: string;
@@ -50,9 +51,8 @@ const Input = ({
 					className={twMerge(
 						clsx(
 							'w-full font-light text-gray-700  overflow-visible rounded select-none  placeholder:text-[#1C345442] placeholder:font-normal placeholder:text-base transition ease-in-out duration-200',
-							size && !inputProps
-								? inputConfig[size].normal
-								: inputConfig[size].withIcon,
+							size && inputConfig[size],
+							inputProps?.startAdornment ? 'pl-7' : 'pr-7',
 							{
 								'outline-primary':
 									variant === 'outlined' || variant === 'filled',
@@ -64,7 +64,9 @@ const Input = ({
 									variant === 'flushed',
 								'rounded-none': variant === 'unstyled',
 							},
-
+							errors &&
+								errors[id] &&
+								'border-danger outline-danger hover:border-danger',
 							className
 						)
 					)}
@@ -73,7 +75,7 @@ const Input = ({
 			</FormGroup>
 			{errors && errors[id] && (
 				<span className="text-xs text-danger select-none">
-					<>{errors[id]?.message}</>
+					<>{capitalizeFirstLetter(String(errors[id]?.message))} </>
 				</span>
 			)}
 		</div>

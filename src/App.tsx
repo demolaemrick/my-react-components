@@ -88,9 +88,6 @@ function App() {
 						register={register}
 						errors={errors}
 						inputProps={{
-							startAdornment: (
-								<InputAdornment position="start" adornment={<HiOutlineEye />} />
-							),
 							endAdornment: (
 								<InputAdornment position="end" adornment={<HiOutlineEye />} />
 							),
