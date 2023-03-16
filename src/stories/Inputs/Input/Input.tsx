@@ -30,7 +30,7 @@ const Input = ({
 	id,
 	label,
 	type,
-	size = 'lg',
+	size = 'md',
 	variant = 'outlined',
 	inputProps,
 	placeholder,

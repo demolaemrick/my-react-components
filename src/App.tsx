@@ -3,10 +3,34 @@ import { ReactNode } from 'react';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { HiOutlineLogout, HiLogout, HiOutlineEye } from 'react-icons/hi';
+
 import Button from 'stories/Inputs/Button/Button';
 import Input from 'stories/Inputs/Input/Input';
+import Select from 'stories/Inputs/Select/Select';
 import InputAdornment from 'components/ui/InputAdornment';
-import { HiOutlineLogout, HiLogout, HiOutlineEye } from 'react-icons/hi';
+import ReactSelect from 'react-select';
+
+export interface ColourOption {
+	readonly value: string;
+	readonly label: string;
+	readonly color: string;
+	readonly isFixed?: boolean;
+	readonly isDisabled?: boolean;
+}
+
+export const colourOptions: readonly ColourOption[] = [
+	{ value: 'ocean', label: 'Ocean', color: '#00B8D9', isFixed: true },
+	{ value: 'blue', label: 'Blue', color: '#0052CC', isDisabled: true },
+	{ value: 'purple', label: 'Purple', color: '#5243AA' },
+	{ value: 'red', label: 'Red', color: '#FF5630', isFixed: true },
+	{ value: 'orange', label: 'Orange', color: '#FF8B00' },
+	{ value: 'yellow', label: 'Yellow', color: '#FFC400' },
+	{ value: 'green', label: 'Green', color: '#36B37E' },
+	{ value: 'forest', label: 'Forest', color: '#00875A' },
+	{ value: 'slate', label: 'Slate', color: '#253858' },
+	{ value: 'silver', label: 'Silver', color: '#666666' },
+];
 
 const loginSchema = yup.object({
 	name: yup.string().required().min(3),
@@ -78,7 +102,10 @@ function App() {
 				{/* <button className="bg-red-500 text-white px-[10px] py-1 min-w-[64px] hover:bg-black rounded-lg cursor-default select-none shadow-mui-button text-sm">
 					SMALL
 				</button> */}
-				<form className="w-[300px] space-y-6" onSubmit={handleSubmit(onSubmit)}>
+				<form
+					className="w-[300px] space-y-6 mx-auto"
+					onSubmit={handleSubmit(onSubmit)}
+				>
 					<Input
 						id="name"
 						label="Name"
@@ -92,18 +119,14 @@ function App() {
 							),
 						}}
 					/>
-					<Input
-						id="street"
-						label="Street"
-						type="text"
-						placeholder="Enter your name"
-						register={register}
-						errors={errors}
-						inputProps={{
-							endAdornment: (
-								<InputAdornment position="end" adornment={<HiOutlineEye />} />
-							),
-						}}
+					<Select />
+					<ReactSelect
+						defaultValue={[colourOptions[2], colourOptions[3]]}
+						isMulti
+						name="colors"
+						options={colourOptions}
+						className="basic-multi-select"
+						classNamePrefix="select"
 					/>
 					<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
 						Submit
