@@ -7,7 +7,7 @@ import { HiOutlineLogout, HiLogout, HiOutlineEye } from 'react-icons/hi';
 
 import Button from 'stories/Inputs/Button/Button';
 import Input from 'stories/Inputs/Input/Input';
-import Select from 'stories/Inputs/Select/Select';
+import Select, { OptionType } from 'stories/Inputs/Select/Select';
 import InputAdornment from 'components/ui/InputAdornment';
 import ReactSelect from 'react-select';
 
@@ -32,9 +32,15 @@ export const colourOptions: readonly ColourOption[] = [
 	{ value: 'silver', label: 'Silver', color: '#666666' },
 ];
 
+const options: OptionType[] = [
+	{ value: 'chocolate', label: 'Chocolate' },
+	{ value: 'strawberry', label: 'Strawberry' },
+	{ value: 'vanilla', label: 'Vanilla' },
+];
+
 const loginSchema = yup.object({
 	name: yup.string().required().min(3),
-	street: yup.string().required().min(14),
+	favorites: yup.array().length(1).required(),
 });
 
 interface PropTypes {
@@ -50,6 +56,7 @@ const FlexRow = ({ children }: PropTypes) => (
 
 function App() {
 	const {
+		control,
 		register,
 		handleSubmit,
 		formState: { errors },
@@ -119,7 +126,12 @@ function App() {
 							),
 						}}
 					/>
-					<Select />
+					<Select
+						placeholder="Choose your favorite"
+						isMulti
+						control={control}
+						options={options}
+					/>
 					<ReactSelect
 						defaultValue={[colourOptions[2], colourOptions[3]]}
 						isMulti

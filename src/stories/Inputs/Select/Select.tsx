@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable import/no-extraneous-dependencies */
 import ReactSelect, { OptionProps, StylesConfig } from 'react-select';
+import { Controller, Control } from 'react-hook-form';
 import { clsx } from 'clsx';
 
 import Label from 'components/ui/InputLabel';
 
-interface OptionType {
+import { capitalizeFirstLetter } from 'shared/utils';
+
+export interface OptionType {
 	readonly value: string;
 	readonly label: string;
 	readonly isFixed?: boolean;
@@ -13,6 +16,7 @@ interface OptionType {
 }
 
 interface SelectProps {
+	placeholder: string;
 	size?: 'base' | 'lg';
 	isMulti?: boolean;
 	isDisabled?: boolean;
@@ -21,13 +25,9 @@ interface SelectProps {
 	isClearable?: boolean;
 	hideSelectedOptions?: boolean;
 	isRtl?: boolean;
+	control?: Control;
+	options: OptionType[];
 }
-
-const options: readonly OptionType[] = [
-	{ value: 'chocolate', label: 'Chocolate' },
-	{ value: 'strawberry', label: 'Strawberry' },
-	{ value: 'vanilla', label: 'Vanilla' },
-];
 
 const sizeStyles = {
 	base: {
@@ -75,19 +75,10 @@ const CustomOption = ({
 	) : null;
 
 const customStyles: StylesConfig<OptionType> = {
-	control: (base, { isFocused }) => ({
-		...base,
-		boxShadow: 'none',
-		borderColor: isFocused ? '#7749F8' : '#e5e7eb',
-		borderWidth: isFocused ? 2 : 1,
-		'&:hover': {
-			borderColor: isFocused ? '#7749F8' : '#e5e7eb',
-		},
-	}),
 	placeholder: (base) => ({
 		...base,
 		fontSize: '1em',
-		color: '#18273AF0',
+		color: 'rred',
 		fontWeight: 300,
 	}),
 	valueContainer: (base) => ({
@@ -96,6 +87,7 @@ const customStyles: StylesConfig<OptionType> = {
 };
 const Select = ({
 	size = 'base',
+	placeholder = 'Select...',
 	isMulti = false,
 	isDisabled = false,
 	isLoading = false,
@@ -103,32 +95,75 @@ const Select = ({
 	isClearable = true,
 	hideSelectedOptions = false,
 	isRtl = false,
+	control,
+	options = [],
 	...rest
 }: SelectProps) => {
 	return (
 		<div className="w-full">
 			<Label htmlFor="">Favorites</Label>
-			<ReactSelect
-				styles={{
-					...customStyles,
-					control: (base) => ({
-						...base,
-						...(!isMulti && { height: sizeStyles[size].height }),
-					}),
-				}}
-				isMulti={isMulti}
-				isDisabled={isDisabled}
-				isLoading={isLoading}
-				isClearable={isClearable}
-				isRtl={isRtl}
-				isSearchable={isSearchable}
-				hideSelectedOptions={hideSelectedOptions}
-				options={options}
-				components={{
-					IndicatorSeparator: () => null,
-					Option: CustomOption,
-				}}
-				{...rest}
+			<Controller
+				name="favorites"
+				control={control}
+				render={({
+					field: { onChange, value, ...others },
+					fieldState: { error, invalid },
+				}) => (
+					<>
+						<ReactSelect
+							styles={{
+								...customStyles,
+								control: (base, { isFocused }) => ({
+									...base,
+									...(!isMulti && { height: sizeStyles[size].height }),
+									boxShadow: 'none',
+									borderWidth: isFocused ? 2 : 1,
+									borderColor: invalid
+										? 'red'
+										: isFocused
+										? '#7749F8'
+										: '#e5e7eb',
+									'&:hover': {
+										borderColor: invalid
+											? 'red'
+											: isFocused
+											? '#7749F8'
+											: '#e5e7eb',
+									},
+								}),
+							}}
+							placeholder={placeholder}
+							isMulti={isMulti}
+							isDisabled={isDisabled}
+							isLoading={isLoading}
+							isClearable={isClearable}
+							isRtl={isRtl}
+							isSearchable={isSearchable}
+							hideSelectedOptions={hideSelectedOptions}
+							options={options}
+							components={{
+								IndicatorSeparator: () => null,
+								Option: CustomOption,
+							}}
+							onChange={(selectedOption) => {
+								if (Array.isArray(selectedOption)) {
+									onChange(
+										selectedOption.map((option) => (option as OptionType).value)
+									);
+								} else {
+									onChange((selectedOption as OptionType).value);
+								}
+							}}
+							{...rest}
+							{...others}
+						/>
+						{error && (
+							<span className="text-xs text-danger select-none">
+								{capitalizeFirstLetter(String(error.message))}
+							</span>
+						)}
+					</>
+				)}
 			/>
 		</div>
 	);
