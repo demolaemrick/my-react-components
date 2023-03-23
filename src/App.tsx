@@ -40,7 +40,7 @@ const options: OptionType[] = [
 
 const loginSchema = yup.object({
 	name: yup.string().required().min(3),
-	favorites: yup.array().length(1).required(),
+	favorites: yup.array().min(2).required(),
 });
 
 interface PropTypes {
@@ -102,7 +102,7 @@ function App() {
 				<Header>Buttons with Icon</Header>
 				<FlexRow>
 					<Button startIcon={<HiOutlineLogout />}>Primary</Button>
-					<Button color="secondary" endIcon={<HiLogout />}>
+					<Button color="secondary" disableElevation endIcon={<HiLogout />}>
 						Secondary
 					</Button>
 				</FlexRow>
