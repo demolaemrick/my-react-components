@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
 import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import ReactSelect from 'react-select';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { HiOutlineLogout, HiLogout, HiOutlineEye } from 'react-icons/hi';
@@ -9,7 +10,7 @@ import Button from 'stories/Inputs/Button/Button';
 import Input from 'stories/Inputs/Input/Input';
 import Select, { OptionType } from 'stories/Inputs/Select/Select';
 import InputAdornment from 'components/ui/InputAdornment';
-import ReactSelect from 'react-select';
+import Table from 'stories/Display/Table/Table';
 
 export interface ColourOption {
 	readonly value: string;
@@ -64,10 +65,41 @@ function App() {
 		resolver: yupResolver(loginSchema),
 		mode: 'all', //this allows validation to happen on every input state e.g onFocus
 	});
+	const tableData = useMemo(
+		() => [
+			{
+				col1: 'Hello',
+				col2: 'World',
+			},
+			{
+				col1: 'react-table',
+				col2: 'rocks',
+			},
+			{
+				col1: 'whatever',
+				col2: 'you want',
+			},
+		],
+		[]
+	);
+
+	const columns = useMemo(
+		() => [
+			{
+				Header: 'Column 1',
+				accessor: 'col1', // accessor is the "key" in the data
+			},
+			{
+				Header: 'Column 2',
+				accessor: 'col2',
+			},
+		],
+		[]
+	);
 
 	const onSubmit: SubmitHandler<FieldValues> = (data) => alert(data);
 	return (
-		<div className="w-full h-screen flex items-center justify-center">
+		<div className="w-full flex justify-center pb-20">
 			<div className="flex flex-col gap-2">
 				<Header>Contained Button</Header>
 				<FlexRow>
@@ -106,9 +138,7 @@ function App() {
 						Secondary
 					</Button>
 				</FlexRow>
-				{/* <button className="bg-red-500 text-white px-[10px] py-1 min-w-[64px] hover:bg-black rounded-lg cursor-default select-none shadow-mui-button text-sm">
-					SMALL
-				</button> */}
+				<Header>Forms</Header>
 				<form
 					className="w-[300px] space-y-6 mx-auto"
 					onSubmit={handleSubmit(onSubmit)}
@@ -144,6 +174,7 @@ function App() {
 						Submit
 					</button>
 				</form>
+				<Table data={tableData} columns={columns} />
 			</div>
 		</div>
 	);
