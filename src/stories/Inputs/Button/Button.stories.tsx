@@ -49,3 +49,8 @@ Large.args = {
 	size: 'lg',
 	children: 'Large',
 };
+
+export const FullWidth = Template.bind({});
+FullWidth.args = {
+	fullWidth: true,
+};
